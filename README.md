@@ -6,3 +6,4 @@ FAANG INTERVIEW PREPARATION
 - https://www.techinterviewhandbook.org/grind75
 - https://codebasics.io/courses/data-structures-and-algorithms-in-python
 - https://www.bigocheatsheet.com/
+- https://github.com/donnemartin/system-design-primer
