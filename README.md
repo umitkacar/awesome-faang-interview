@@ -8,3 +8,6 @@ FAANG INTERVIEW PREPARATION
 - https://www.bigocheatsheet.com/
 - https://github.com/donnemartin/system-design-primer
 - https://www.techinterviewhandbook.org/behavioral-interview-questions
+- https://www.udemy.com/course/data-structures-and-algorithms-bootcamp-in-python/
+- https://www.youtube.com/watch?v=pkYVOmU3MgA
+- https://www.youtube.com/watch?v=RBSGKlAvoiM
