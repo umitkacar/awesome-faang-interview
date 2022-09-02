@@ -1,5 +1,5 @@
 # faang-interview
-FAANG INTERVIEW PREPARATION
+## FAANG INTERVIEW PREPARATION
 
 - https://www.geeksforgeeks.org/python-programming-language/?ref=shm
 - https://www.youtube.com/watch?v=jfpdr9j94_k
@@ -11,3 +11,7 @@ FAANG INTERVIEW PREPARATION
 - https://www.udemy.com/course/data-structures-and-algorithms-bootcamp-in-python/
 - https://www.youtube.com/watch?v=pkYVOmU3MgA
 - https://www.youtube.com/watch?v=RBSGKlAvoiM
+
+## DATA STRUCTURE & ALGORTIHMS
+
+- https://www.codingninjas.com/codestudio/library/time-and-space-complexity
