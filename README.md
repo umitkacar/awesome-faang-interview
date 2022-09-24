@@ -39,4 +39,12 @@ https://www.amazon.co.uk/dp/1492032646/ref=cm_sw_r_awdo_WCJ4KPJNFV16PRZJJKZK_0
 
 - https://www.hackerrank.com/
 
+- https://www.testdome.com/
+
+- https://devskiller.com/
+
+- https://workera.ai/
+
+- https://www.datacamp.com/
+
 
