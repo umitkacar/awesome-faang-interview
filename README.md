@@ -16,7 +16,7 @@
 - https://www.udemy.com/course/data-structures-and-algorithms-bootcamp-in-python/
 - https://codebasics.io/courses/data-structures-and-algorithms-in-python
 
-## BOOKS
+## BOOKS
 
 - System Design Interview – An insider's guide
 https://www.amazon.co.uk/dp/B08B35X2ND/ref=cm_sw_r_api_i_9F932M85W8ZE3M44Z2AT_0?_encoding=UTF8&psc=1 
