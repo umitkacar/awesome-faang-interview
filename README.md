@@ -7,7 +7,7 @@
 - https://github.com/donnemartin/system-design-primer
 - https://www.techinterviewhandbook.org/behavioral-interview-questions
 - [Data Structures and Algorithms in Python - Full Course for Beginners](https://www.youtube.com/watch?v=pkYVOmU3MgA)
-- https://www.youtube.com/watch?v=RBSGKlAvoiM
+- [Data Structures Easy to Advanced Course - Full Tutorial from a Google Engineer](https://www.youtube.com/watch?v=RBSGKlAvoiM)
 
 ## DATA STRUCTURE & ALGORTIHMS
 
