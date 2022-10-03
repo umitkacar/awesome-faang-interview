@@ -26,16 +26,11 @@
 
 ## LIVE CODING
 
-- https://leetcode.com/
-
-- https://www.hackerrank.com/
-
-- https://www.testdome.com/
-
-- https://devskiller.com/
-
-- https://workera.ai/
-
-- https://www.datacamp.com/
+- [LEET CODE](https://leetcode.com/)
+- [HACKER RANK](https://www.hackerrank.com/)
+- [TEST DOME](https://www.testdome.com/)
+- [DEV SKILLER](https://devskiller.com/)
+- [WORK ERA](https://workera.ai/)
+- [DATACAMP](https://www.datacamp.com/)
 
 
