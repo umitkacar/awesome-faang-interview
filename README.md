@@ -2,7 +2,7 @@
 ## FAANG INTERVIEW
 
 - https://www.geeksforgeeks.org/python-programming-language/?ref=shm
-- https://www.youtube.com/watch?v=jfpdr9j94_k
+- [Study plan to crack FAANG job interviews](https://www.youtube.com/watch?v=jfpdr9j94_k)
 - [LeetCode Grind 75](https://www.techinterviewhandbook.org/grind75)
 - [ystem design interview](https://github.com/donnemartin/system-design-primer)
 - [Software Engineer behavioral interview questions](https://www.techinterviewhandbook.org/behavioral-interview-questions)
