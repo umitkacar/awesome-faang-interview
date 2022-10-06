@@ -16,6 +16,9 @@
 - https://www.udemy.com/course/data-structures-and-algorithms-bootcamp-in-python/
 - https://codebasics.io/courses/data-structures-and-algorithms-in-python
 
+## OBJECT ORIENTED PROGRAMMING
+- https://realpython.com/learning-paths/object-oriented-programming-oop-python/
+
 ## BOOKS
 
 - [Coding Interview Questions](https://www.amazon.com/Coding-Interview-Questions-Narasimha-Karumanchi/dp/8193245202)
