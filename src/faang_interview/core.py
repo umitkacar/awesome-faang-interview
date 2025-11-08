@@ -3,7 +3,7 @@
 from enum import Enum
 from typing import Optional
 
-from pydantic import BaseModel, Field, HttpUrl
+from pydantic import BaseModel, Field, field_validator
 
 
 class ResourceType(str, Enum):
@@ -45,16 +45,23 @@ class Resource(BaseModel):
 
     title: str = Field(..., description="Title of the resource")
     description: str = Field(..., description="Description of the resource")
-    url: HttpUrl = Field(..., description="URL to the resource")
+    url: str = Field(..., description="URL to the resource")
     resource_type: ResourceType = Field(..., description="Type of resource")
     category: ResourceCategory = Field(..., description="Category of resource")
-    difficulty: Optional[DifficultyLevel] = Field(
-        None, description="Difficulty level of resource"
-    )
+    difficulty: Optional[DifficultyLevel] = Field(None, description="Difficulty level of resource")
     is_free: bool = Field(True, description="Whether the resource is free")
     price: Optional[str] = Field(None, description="Price if not free")
     rating: Optional[float] = Field(None, ge=0.0, le=5.0, description="User rating (0-5)")
     tags: list[str] = Field(default_factory=list, description="Tags for the resource")
+
+    @field_validator("url")
+    @classmethod
+    def validate_url(cls, v: str) -> str:
+        """Validate URL format."""
+        if not v.startswith(("http://", "https://")):
+            msg = "URL must start with http:// or https://"
+            raise ValueError(msg)
+        return v
 
     class Config:
         """Pydantic configuration."""

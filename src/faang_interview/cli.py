@@ -1,6 +1,5 @@
 """Command-line interface for FAANG interview resources."""
 
-from pathlib import Path
 from typing import Optional
 
 import typer
@@ -44,8 +43,8 @@ def main(
     """Awesome FAANG Interview Resources - CLI Tool."""
 
 
-@app.command()
-def list(  # noqa: A001
+@app.command(name="list")
+def list_resources(
     category: Optional[ResourceCategory] = typer.Option(
         None, "--category", "-c", help="Filter by category"
     ),
@@ -69,7 +68,9 @@ def list(  # noqa: A001
         rprint("[yellow]No resources found matching the criteria.[/yellow]")
         return
 
-    table = Table(title="🚀 FAANG Interview Resources", show_header=True, header_style="bold magenta")
+    table = Table(
+        title="🚀 FAANG Interview Resources", show_header=True, header_style="bold magenta"
+    )
     table.add_column("Title", style="cyan", no_wrap=False)
     table.add_column("Type", style="green")
     table.add_column("Category", style="blue")
@@ -227,7 +228,11 @@ def search(
     for resource in results:
         table.add_row(
             resource.title,
-            resource.description[:50] + "..." if len(resource.description) > 50 else resource.description,
+            (
+                resource.description[:50] + "..."
+                if len(resource.description) > 50
+                else resource.description
+            ),
             resource.category.value,
             resource.resource_type.value,
         )

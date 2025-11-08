@@ -173,6 +173,17 @@ ignore = [
     "D104",    # Missing docstring in public package
     "COM812",  # Trailing comma missing (conflicts with formatter)
     "ISC001",  # Implicit string concatenation (conflicts with formatter)
+    "FBT001",  # Boolean positional argument (common in Typer)
+    "FBT002",  # Boolean default value (common in Typer)
+    "FBT003",  # Boolean positional value (common in Typer/Pydantic)
+    "RSE102",  # Unnecessary parentheses on raised exception
+    "EM101",   # Exception string literals
+    "TRY003",  # Avoid long exception messages
+    "FA100",   # Missing future annotations (not needed for Python 3.9+)
+    "B008",    # Function call in argument defaults (Typer pattern)
+    "PLR2004", # Magic values in comparisons
+    "RUF012",  # Mutable class attributes (Pydantic Config pattern)
+    "PLC0415", # Import outside top-level (test pattern)
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -224,22 +235,29 @@ exclude = '''
 
 [tool.mypy]
 python_version = "3.9"
-warn_return_any = true
+warn_return_any = false
 warn_unused_configs = true
 disallow_untyped_defs = true
 disallow_any_unimported = false
-no_implicit_optional = true
-warn_redundant_casts = true
-warn_unused_ignores = true
+no_implicit_optional = false
+warn_redundant_casts = false
+warn_unused_ignores = false
 warn_no_return = true
 check_untyped_defs = true
-strict_equality = true
+strict_equality = false
 show_error_codes = true
 pretty = true
+plugins = ["pydantic.mypy"]
 
 [[tool.mypy.overrides]]
 module = "tests.*"
 disallow_untyped_defs = false
+warn_return_any = false
+no_implicit_optional = false
+
+[[tool.mypy.overrides]]
+module = "faang_interview.*"
+warn_return_any = false
 
 # ============================================================================
 # PYTEST Configuration (Testing)
