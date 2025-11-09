@@ -40,8 +40,13 @@ dev = [
     "pytest>=8.0.0",
     "pytest-cov>=4.1.0",
     "pytest-asyncio>=0.23.0",
+    "pytest-xdist>=3.5.0",
+    "pytest-sugar>=1.0.0",
+    "pytest-randomly>=3.15.0",
+    "coverage[toml]>=7.4.0",
     "pre-commit>=3.6.0",
     "hatch>=1.9.0",
+    "bandit[toml]>=1.7.0",
 ]
 
 [project.urls]
@@ -67,21 +72,31 @@ dependencies = [
     "pytest>=8.0.0",
     "pytest-cov>=4.1.0",
     "pytest-asyncio>=0.23.0",
+    "pytest-xdist>=3.5.0",
+    "pytest-sugar>=1.0.0",
+    "pytest-randomly>=3.15.0",
+    "coverage[toml]>=7.4.0",
     "pre-commit>=3.6.0",
+    "bandit[toml]>=1.7.0",
 ]
 
 [tool.hatch.envs.default.scripts]
 test = "pytest {args:tests}"
-test-cov = "pytest --cov=src/faang_interview --cov-report=term-missing --cov-report=html {args:tests}"
+test-parallel = "pytest -n auto {args:tests}"
+test-cov = "pytest --cov=src/faang_interview --cov-report=term-missing --cov-report=html --cov-report=xml {args:tests}"
+test-cov-parallel = "pytest -n auto --cov=src/faang_interview --cov-report=term-missing --cov-report=html --cov-report=xml {args:tests}"
 type-check = "mypy src tests"
 lint = "ruff check src tests"
+lint-fix = "ruff check --fix src tests"
 format = "black src tests"
 format-check = "black --check src tests"
+security = "bandit -r src -c pyproject.toml"
 all = [
     "format",
     "lint",
     "type-check",
-    "test-cov",
+    "security",
+    "test-cov-parallel",
 ]
 
 [tool.hatch.envs.docs]
@@ -271,12 +286,20 @@ addopts = [
     "--strict-config",
     "--showlocals",
     "--tb=short",
+    "--cov-report=term-missing:skip-covered",
+    "--cov-report=html",
+    "--cov-report=xml",
 ]
 testpaths = ["tests"]
 pythonpath = ["src"]
 filterwarnings = [
     "error",
     "ignore::DeprecationWarning",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
 ]
 
 # ============================================================================
