@@ -1,0 +1,195 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+
+default_language_version:
+  python: python3.11
+
+repos:
+  # ============================================================================
+  # Pre-commit hooks
+  # ============================================================================
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      # File checks
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+      - id: check-symlinks
+      - id: destroyed-symlinks
+
+      # Git checks
+      - id: check-merge-conflict
+      - id: check-vcs-permalinks
+      - id: forbid-new-submodules
+      - id: no-commit-to-branch
+        args: ['--branch', 'main', '--branch', 'master']
+
+      # Content checks
+      - id: check-ast
+      - id: check-builtin-literals
+      - id: check-docstring-first
+      - id: debug-statements
+      - id: detect-private-key
+      - id: fix-byte-order-marker
+
+      # File format checks
+      - id: check-json
+      - id: check-toml
+      - id: check-yaml
+        args: ['--safe']
+      - id: check-xml
+
+      # Whitespace and formatting
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+      - id: trailing-whitespace
+        args: ['--markdown-linebreak-ext=md']
+
+      # Python specific
+      - id: name-tests-test
+        args: ['--pytest-test-first']
+      - id: requirements-txt-fixer
+
+  # ============================================================================
+  # RUFF - Ultra-fast Python linter (replaces flake8, isort, and more)
+  # ============================================================================
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.3.4
+    hooks:
+      # Run the linter
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+        types_or: [python, pyi, jupyter]
+
+      # Run the formatter
+      - id: ruff-format
+        types_or: [python, pyi, jupyter]
+
+  # ============================================================================
+  # BLACK - The uncompromising Python code formatter
+  # ============================================================================
+  - repo: https://github.com/psf/black
+    rev: 24.3.0
+    hooks:
+      - id: black
+        language_version: python3.11
+        args: ['--config', 'pyproject.toml']
+
+      - id: black-jupyter
+        language_version: python3.11
+
+  # ============================================================================
+  # MYPY - Static type checker
+  # ============================================================================
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.9.0
+    hooks:
+      - id: mypy
+        additional_dependencies:
+          - pydantic>=2.6.0
+          - typer>=0.12.0
+          - rich>=13.7.0
+          - httpx>=0.27.0
+        args: [--config-file=pyproject.toml]
+        pass_filenames: false
+
+  # ============================================================================
+  # PYUPGRADE - Automatically upgrade syntax for newer versions of Python
+  # ============================================================================
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.15.2
+    hooks:
+      - id: pyupgrade
+        args: [--py39-plus]
+
+  # ============================================================================
+  # PRETTIER - Multi-language formatter
+  # ============================================================================
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        types_or: [yaml, markdown, json]
+        exclude: ^(\.github/|docs/)
+
+  # ============================================================================
+  # MARKDOWN - Markdown linting
+  # ============================================================================
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.39.0
+    hooks:
+      - id: markdownlint
+        args: ['--fix']
+        exclude: ^(\.github/|CHANGELOG\.md)
+
+  # ============================================================================
+  # SHELLCHECK - Shell script linting
+  # ============================================================================
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+
+  # ============================================================================
+  # BANDIT - Security linting
+  # ============================================================================
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.8
+    hooks:
+      - id: bandit
+        args: ['-c', 'pyproject.toml', '-ll']
+        additional_dependencies: ['bandit[toml]']
+        exclude: ^tests/
+
+  # ============================================================================
+  # PYTEST - Fast fail tests
+  # ============================================================================
+  - repo: local
+    hooks:
+      - id: pytest-fast
+        name: pytest-fast
+        entry: pytest
+        language: system
+        types: [python]
+        args: ["-x", "--tb=short", "--no-cov"]
+        pass_filenames: false
+        always_run: true
+
+  # ============================================================================
+  # POETRY - Check pyproject.toml validity
+  # ============================================================================
+  - repo: https://github.com/python-poetry/poetry
+    rev: 1.8.0
+    hooks:
+      - id: poetry-check
+        files: pyproject.toml
+        pass_filenames: false
+
+  # ============================================================================
+  # CODESPELL - Check for common misspellings
+  # ============================================================================
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.2.6
+    hooks:
+      - id: codespell
+        args: ['--ignore-words-list', 'crate,nd,sav,hist']
+        exclude: ^(\.git/|\.mypy_cache/|\.pytest_cache/|\.ruff_cache/)
+
+# ============================================================================
+# CI Configuration
+# ============================================================================
+ci:
+  autofix_commit_msg: |
+    🤖 [pre-commit.ci] auto fixes from pre-commit hooks
+
+    for more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_branch: ''
+  autoupdate_commit_msg: '🔧 [pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: weekly
+  skip: []
+  submodules: false
