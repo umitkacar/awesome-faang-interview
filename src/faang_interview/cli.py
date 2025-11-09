@@ -79,7 +79,7 @@ def list_resources(
 
     for resource in resources:
         free_icon = "✅" if resource.is_free else "💰"
-        rating_str = f"{resource.rating:.1f}⭐" if resource.rating else "N/A"
+        rating_str = f"{resource.rating:.1f}⭐" if resource.rating is not None else "N/A"
 
         table.add_row(
             resource.title,
@@ -161,6 +161,11 @@ def roadmap() -> None:
 def stats() -> None:
     """📊 Show resource statistics."""
     resources = get_all_resources()
+
+    # Guard clause for empty resources
+    if not resources:
+        rprint("[yellow]No resources available yet. Add some resources to see statistics.[/yellow]")
+        return
 
     total = len(resources)
     free_count = sum(1 for r in resources if r.is_free)

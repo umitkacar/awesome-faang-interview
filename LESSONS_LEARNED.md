@@ -95,18 +95,37 @@ ruff check: ~0.05 seconds (150x faster!)
 **Configuration Lesson**:
 ```toml
 [tool.ruff]
-line-length = 100  # Match Black
-target-version = "py311"
+line-length = 100
+target-version = "py39"  # Match minimum supported Python version
 
 [tool.ruff.lint]
-select = ["ALL"]  # Enable all rules
+# Use curated list of rule families (not ["ALL"])
+select = [
+    "E", "W",    # pycodestyle
+    "F",         # pyflakes
+    "I",         # isort
+    "C", "B",    # comprehensions, bugbear
+    "UP",        # pyupgrade
+    "N",         # pep8-naming
+    "ANN",       # flake8-annotations
+    "S",         # flake8-bandit
+    # ... see full list in pyproject.toml
+]
+
 ignore = [
     "FBT001", "FBT002", "FBT003",  # Boolean args OK in Typer
     "B008",    # Function call in defaults (Pydantic/Typer pattern)
+    # ... see full list in pyproject.toml
 ]
 ```
 
-**Key Insight**: Start with `select = ["ALL"]` then selectively ignore false positives. This ensures maximum code quality while allowing framework-specific patterns.
+**Note**: See complete configuration in [`pyproject.toml`](pyproject.toml) lines 119-223.
+
+**Key Insight**: We use a curated list of specific rule families instead of `select = ["ALL"]` because:
+- Enables rules that match our code patterns (Typer, Pydantic)
+- Avoids conflicts with framework-specific patterns
+- More stable (new Ruff rules won't auto-enable and break builds)
+- Easier to understand which checks are active
 
 ### 3. Type Checking: MyPy Configuration
 
@@ -115,15 +134,20 @@ ignore = [
 **Configuration**:
 ```toml
 [tool.mypy]
-python_version = "3.11"
-warn_return_any = true
+python_version = "3.9"  # Match minimum supported version
+warn_return_any = false  # Pragmatic for Typer/Rich APIs
 warn_unused_configs = true
 disallow_untyped_defs = true
 plugins = ["pydantic.mypy"]
 
-# Pragmatic: Don't require named arguments everywhere
-warn_redundant_casts = true
+# Relaxed for practicality with third-party libraries
+warn_redundant_casts = false
+warn_unused_ignores = false
 ```
+
+**Note**: See complete configuration in [`pyproject.toml`](pyproject.toml) lines 253-278.
+
+**Key Lesson**: We use `warn_return_any = false` because Typer and Rich have dynamic return types that cause false positives. This is a pragmatic choice for CLI applications.
 
 **Lesson**: The `pydantic.mypy` plugin is essential when using Pydantic. Without it, you'll get hundreds of false positives.
 

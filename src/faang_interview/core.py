@@ -51,7 +51,7 @@ class Resource(BaseModel):
     difficulty: Optional[DifficultyLevel] = Field(None, description="Difficulty level of resource")
     is_free: bool = Field(True, description="Whether the resource is free")
     price: Optional[str] = Field(None, description="Price if not free")
-    rating: Optional[float] = Field(None, ge=0.0, le=5.0, description="User rating (0-5)")
+    rating: Optional[float] = Field(None, gt=0.0, le=5.0, description="User rating (0.1-5.0)")
     tags: list[str] = Field(default_factory=list, description="Tags for the resource")
 
     @field_validator("url")

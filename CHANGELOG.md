@@ -9,6 +9,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- **Division by zero crash** in `stats` command when no resources exist
+  - Added guard clause to handle empty resource list gracefully
+  - Added test coverage for empty resources scenario
+  - Location: `src/faang_interview/cli.py:165-168`, `tests/test_cli.py:61-67`
+
+- **Rating display bug** - 0.0 rating now correctly shows instead of "N/A"
+  - Changed from truthiness check to explicit `is not None` check
+  - Location: `src/faang_interview/cli.py:82`
+
+- **Missing safety dependency** for security vulnerability scanning
+  - Added `safety>=3.0.0` to dev dependencies
+  - `make security` now works without manual installation
+  - Location: `pyproject.toml:50,82`
+
+- **Documentation accuracy** - Configuration examples in LESSONS_LEARNED.md
+  - Corrected Ruff configuration (target-version: py39, curated rule list)
+  - Corrected MyPy configuration (python_version: 3.9, warn_return_any: false)
+  - Added links to actual pyproject.toml for reference
+  - Location: `LESSONS_LEARNED.md:95-152`
+
+### Changed
+- **Rating validation** now requires `> 0.0` (zero ratings are invalid)
+  - Changed from `ge=0.0` to `gt=0.0` in Pydantic Field constraint
+  - Updated description from "0-5" to "0.1-5.0"
+  - Location: `src/faang_interview/core.py:54`
+
 ### Planned
 - CI/CD pipeline with GitHub Actions
 - Mutation testing with mutmut
