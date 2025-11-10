@@ -47,6 +47,7 @@ dev = [
     "pre-commit>=3.6.0",
     "hatch>=1.9.0",
     "bandit[toml]>=1.7.0",
+    "safety>=3.0.0",
 ]
 
 [project.urls]
@@ -78,6 +79,7 @@ dependencies = [
     "coverage[toml]>=7.4.0",
     "pre-commit>=3.6.0",
     "bandit[toml]>=1.7.0",
+    "safety>=3.0.0",
 ]
 
 [tool.hatch.envs.default.scripts]

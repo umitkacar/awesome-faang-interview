@@ -1,5 +1,6 @@
 """Tests for CLI commands."""
 
+import pytest
 from typer.testing import CliRunner
 
 from faang_interview.cli import app
@@ -57,3 +58,11 @@ class TestCLICommands:
         result = runner.invoke(app, ["--version"])
         assert result.exit_code == 0
         assert "version" in result.stdout.lower()
+
+    def test_stats_with_empty_resources(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        """Test stats command handles empty resource list gracefully."""
+        # Mock get_all_resources to return empty list
+        monkeypatch.setattr("faang_interview.cli.get_all_resources", list)
+        result = runner.invoke(app, ["stats"])
+        assert result.exit_code == 0
+        assert "no resources" in result.stdout.lower()
